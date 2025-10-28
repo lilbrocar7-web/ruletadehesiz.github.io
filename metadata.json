@@ -1,0 +1,5 @@
+{
+  "name": "React Wheel of Fortune",
+  "description": "A customizable wheel of fortune application. Add, edit, and delete options, then spin the wheel to see what you land on! Built with React and Tailwind CSS.",
+  "requestFramePermissions": []
+}

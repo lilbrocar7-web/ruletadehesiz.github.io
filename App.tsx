@@ -38,7 +38,7 @@ const App: React.FC = () => {
     }
     // --- End force red ---
 
-    const fullSpins = 8
+    const fullSpins = 15
     const baseRotation = fullSpins * 360
     // The pointer is at the top (0 degrees). We want the winning segment's center to align with it.
     // The conic gradient starts relative to the top, so we calculate the angle to the winner.
@@ -130,7 +130,7 @@ const App: React.FC = () => {
                         ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                         : "bg-yellow-400 text-gray-900 hover:bg-yellow-500 transform hover:scale-105 active:scale-100"
                     }
-                    `}
+                  `}
             >
               {isSpinning ? "Spinning..." : "SPIN"}
             </button>

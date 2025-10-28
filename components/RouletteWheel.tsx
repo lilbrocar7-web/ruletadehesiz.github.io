@@ -39,50 +39,35 @@ const RouletteWheel: React.FC<{ rotation: number; options: WheelOption[] }> = ({
         <div className="absolute w-full h-full rounded-full" style={gradientStyle} />
         <div className="absolute w-full h-full">
           {options.map((option, index) => {
-            const angle = index * segmentAngle
-            const labelAngle = angle + segmentAngle / 2
-            const isFlipped = labelAngle > 90 && labelAngle < 270
+            // Ángulo del centro del segmento
+            const segmentCenterAngle = index * segmentAngle + segmentAngle / 2
 
             // Ajustar tamaño de fuente según número de opciones
-            const fontSize = totalOptions > 12 ? "0.6rem" : totalOptions > 8 ? "0.75rem" : "0.9rem"
-            const fontSizeMd = totalOptions > 12 ? "0.75rem" : totalOptions > 8 ? "0.9rem" : "1.1rem"
+            const fontSize = totalOptions > 12 ? "text-[0.6rem]" : totalOptions > 8 ? "text-xs" : "text-sm"
+            const fontSizeMd = totalOptions > 12 ? "md:text-xs" : totalOptions > 8 ? "md:text-sm" : "md:text-base"
 
-            // Radio donde se posiciona el texto (70% del radio de la rueda)
-            const radius = window.innerWidth >= 768 ? 225 * 0.65 : 150 * 0.65
-
-            // Calcular posición X e Y usando trigonometría
-            const angleRad = (labelAngle - 90) * (Math.PI / 180)
-            const x = 50 + Math.cos(angleRad) * (radius / (window.innerWidth >= 768 ? 225 : 150)) * 50
-            const y = 50 + Math.sin(angleRad) * (radius / (window.innerWidth >= 768 ? 225 : 150)) * 50
-
-            // Ancho máximo del texto basado en el ángulo del segmento
-            const maxWidth = totalOptions > 12 ? "45px" : totalOptions > 8 ? "60px" : "80px"
-            const maxWidthMd = totalOptions > 12 ? "60px" : totalOptions > 8 ? "80px" : "100px"
+            // Ancho máximo del texto basado en el número de opciones
+            const maxWidth = totalOptions > 12 ? "max-w-[40px]" : totalOptions > 8 ? "max-w-[55px]" : "max-w-[70px]"
+            const maxWidthMd =
+              totalOptions > 12 ? "md:max-w-[55px]" : totalOptions > 8 ? "md:max-w-[75px]" : "md:max-w-[95px]"
 
             return (
               <div
                 key={option.id}
-                className="absolute"
+                className="absolute top-0 left-1/2 origin-bottom"
                 style={{
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  transform: `translate(-50%, -50%) rotate(${isFlipped ? labelAngle + 180 : labelAngle}deg)`,
+                  height: "50%",
+                  transform: `rotate(${segmentCenterAngle}deg)`,
                 }}
               >
-                <span
-                  className="text-white font-bold text-center leading-tight block"
+                <div
+                  className={`absolute left-1/2 -translate-x-1/2 ${fontSize} ${fontSizeMd} ${maxWidth} ${maxWidthMd}`}
                   style={{
-                    maxWidth: window.innerWidth >= 768 ? maxWidthMd : maxWidth,
-                    fontSize: window.innerWidth >= 768 ? fontSizeMd : fontSize,
-                    textShadow: "2px 2px 4px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.9)",
-                    wordBreak: "break-word",
-                    hyphens: "auto",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    top: "15%",
                   }}
                 >
-                  {option.label}
-                </span>
+                  
+                </div>
               </div>
             )
           })}
